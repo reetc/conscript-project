@@ -1,0 +1,2 @@
+# conscript-project
+Django Application
