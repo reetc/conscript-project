@@ -25,12 +25,14 @@ SECRET_KEY = 't=s*67jdlmf8hj4ax9dut480hm*yk*55_kg(sn&nq29p4344j6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-env-project.ppdptyamqk.ap-south-1.elasticbeanstalk.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'company',
+    'candidate.apps.CandidateConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
