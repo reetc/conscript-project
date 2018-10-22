@@ -22,17 +22,17 @@
             <div class="collapse navbar-collapse"
                 id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="index.html">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="blog-post-list.html">Blog</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'blog' %}">Blog</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'about-us' %}">About Us</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="portal.html">Portal</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'contact-us' %}">Contact Us</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'portal' %}">Portal</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <main class="page landing-page">
-        <section class="clean-block clean-hero" style="background-image:url(&quot; static "home/assets/img/tech/image4.jpg&quot;);color:rgba(23, 162, 255, 0.85);">
+        <section class="clean-block clean-hero" style="background-image:url(&quot;assets/img/tech/image4.jpg&quot;);color:rgba(23, 162, 255, 0.85);">
             <div class="text">
                 <h2>Redefinig hiring process with AI</h2>
                 <p></p><button class="btn btn-outline-light btn-lg" type="button">Learn More</button></div>
@@ -145,8 +145,8 @@
                 <div class="col-sm-3">
                     <h5>Get started</h5>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="portal.html">Sign up</a></li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'portal' %}">Sign up</a></li>
                         <li><a href="#">Downloads</a></li>
                     </ul>
                 </div>

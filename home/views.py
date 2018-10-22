@@ -6,3 +6,14 @@ def homepage(request):
 
 def aboutpage(request):
 	return render(request, 'home/about-us.html')
+
+def portal(request):
+	return render(request, 'home/portal.html')
+
+def contactpage(request):
+	return render(request, 'home/contact-us.html')
+
+def blog(request):
+	return render(request, 'home/blog-post-list.html')
+
+
