@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Webcam</title>
+    </head>
+    <style type="text/css">
+        .class2{
+            background-color: lightblue;
+        }
+        .class1{
+            height: 800px;
+            width: 800;
+            vertical-align: center;
+            background-color: lightblue;
+        }
+        .text{
+            text-align: center;
+        }
+    </style>
+    <script>
+        function myFunction() {
+            
+        }
+    </script>
+<body class="class2" style="text-align:  center;" onload="myFunction()">
+        <!-- 1. Include action buttons play/stop -->
+<button id="btn-start-recording">Start Recording</button>
+<button id="btn-stop-recording" disabled="disabled">Stop Recording</button>
+<button id="upload-to-aws">Upload</button>
+<a href="first.html"><button>Next Question</button></a>
+<hr>
+	
+<h2 class="text">Tell me about yourself.</h2>>
+<video id="my-preview" class="class1"controls autoplay ></video>
+
+<script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<!-- 4. Initialize and prepare the video recorder logic -->
+<script>
+	//---------------------------------------------------------------
+	var albumBucketName = 'video-bucket-01';
+	var bucketRegion = 'us-east-2';
+	var IdentityPoolId = 'us-east-1_FlxVXEiqf';
+
+	var s3 = new AWS.S3({
+	  apiVersion: '2006-03-01',
+	  params: {Bucket: albumBucketName}
+	});
+
+	//---------------------------------------------------------------
+    // Store a reference of the preview video element and a global reference to the recorder instance
+    var video = document.getElementById('my-preview');
+    var recorder;
+
+    // When the user clicks on start video recording
+    document.getElementById('btn-start-recording').addEventListener("click", function(){
+        // Disable start recording button
+        this.disabled = true;
+
+        // Request access to the media devices
+        navigator.mediaDevices.getUserMedia({
+            audio: true, 
+            video: true
+        }).then(function(stream) {
+            // Display a live preview on the video element of the page
+            setSrcObject(stream, video);
+
+            // Start to display the preview on the video element
+            // and mute the video to disable the echo issue !
+            video.play();
+            video.muted = true;
+
+            // Initialize the recorder
+            recorder = new RecordRTCPromisesHandler(stream, {
+                mimeType: 'video/webm',
+                bitsPerSecond: 128000
+            });
+
+            // Start recording the video
+            recorder.startRecording().then(function() {
+                console.info('Recording video ...');
+            }).catch(function(error) {
+                console.error('Cannot start video recording: ', error);
+            });
+
+            // release stream on stopRecording
+            recorder.stream = stream;
+
+            // Enable stop recording button
+            document.getElementById('btn-stop-recording').disabled = false;
+        }).catch(function(error) {
+            console.error("Cannot access media devices: ", error);
+        });
+    }, false);
+
+    // When the user clicks on Stop video recording
+    document.getElementById('btn-stop-recording').addEventListener("click", function(){
+        this.disabled = true;
+
+        recorder.stopRecording().then(function() {
+            console.info('stopRecording success');
+
+            // Retrieve recorded video as blob and display in the preview element
+            var videoBlob = recorder.getBlob();
+            video.src = URL.createObjectURL(videoBlob);
+            //alert(video.src)
+            video.play();
+
+            // Unmute video on preview
+            video.muted = false;
+
+            // Stop the device streaming
+            recorder.stream.stop();
+
+            // Enable record button again !
+            document.getElementById('btn-start-recording').disabled = false;
+        }).catch(function(error) {
+            console.error('stopRecording failure', error);
+        });
+    }, false);
+
+    document.getElementById('upload-to-aws').addEventListener("click", function(){
+
+    	//alert("In Upload");
+
+    	var videoBlob = recorder.getBlob();
+    	video.src = URL.createObjectURL(videoBlob);
+    	
+    	AWS.config.update({ accessKeyId: 'AKIAIXVT6KC4HTVUTUAQ', secretAccessKey: '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' });
+    	
+    	//alert("1");
+
+    	var d = new Date();
+    	var n = d.getTime();
+
+  		AWS.config.region = 'us-east-2';
+	  	var s3 = new AWS.S3();
+	  	var params = {
+	    	Bucket: 'video-bucket-01',
+	   	 	Key: n +'.mp4',
+	    	Body: videoBlob,
+	    	ACL: "public-read"
+	  	};
+
+	  	//alert("2");
+		var uploader = s3.upload(params, {}, function (err, data) {
+		  if (err) {
+		  	//alert("3");
+		    //logElapsedTime('error: ' + err.message);
+		  }
+		  else {
+		  	alert("Uploaded the video to AWS succesfully");
+		  }
+		  clearInterval(clock);
+		});
+		uploader.on('httpUploadProgress', function (evt) {
+	    //logElapsedTime('uploaded ' + evt.loaded + '/' + evt.total);
+	  });
+    	
+    }, false);
+
+</script>
+    </body>
+</html>

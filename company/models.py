@@ -14,12 +14,12 @@ class Job_details(models.Model):
 	job_name = models.CharField(max_length = 60)
 	job_location = models.CharField(max_length = 60)
 	job_position = models.CharField(max_length = 60)
-	company_details = models.ForeignKey('Company_details', related_name='jobs')
+	company_details = models.ForeignKey('Company_details', related_name='jobs',on_delete= models.CASCADE)
 
 class Question_details(models.Model):
 	question_name = models.CharField(max_length = 60)
 	question_model_answer = models.CharField(max_length = 100)
 	question_id = models.IntegerField()
 	question_type = models.CharField(max_length = 60)
-	job_details = models.ForeignKey('Job_details', related_name='questions')
+	job_details = models.ForeignKey('Job_details', related_name='questions',on_delete= models.CASCADE)
 
