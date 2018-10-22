@@ -138,18 +138,14 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-<<<<<<< HEAD
-STATICFILES_DIRS = [STATIC_DIR,]
 
 # MEDIA INFORMATION:
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
 LOGIN_URL = '/basic_app/user_login/'
-=======
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
->>>>>>> ac98461a2ab4a74078ba9059834743969894db7b
