@@ -68,25 +68,39 @@
 
 
   <div class="jumbotron" id="frm">
-    <h2>Enter Interview Domain Details</h2>
-    <form action="home.html">
+    <h2>Enter Job Details</h2>
+
+    <form method="POST">{% csrf_token %}
     <div class="form-group">
-      <label for="exampleFormControlInput1"><h5>Domain Name</h5></label>
-      <input style="margin-bottom: 30px; width: 30%;" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Marketing" style="width: 30%">
+      <label for="exampleFormControlInput1"><h5>Job Name</h5></label>
+      <input style="margin-bottom: 30px; width: 30%;" type="text" class="form-control" name="job_name" id="exampleFormControlInput1" placeholder="Marketing" style="width: 30%">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1"><h5>Job Location</h5></label>
+      <input style="margin-bottom: 30px; width: 30%;" type="text" class="form-control" name="job_location" id="exampleFormControlInput1" placeholder="Ex: Mumbai" style="width: 30%">
+    </div>
+
+    <div class="form-group">
+      <label for="exampleFormControlInput1"><h5>Job Position</h5></label>
+      <input style="margin-bottom: 30px; width: 30%;" type="text" class="form-control" name="job_position" id="exampleFormControlInput1" placeholder="Manager" style="width: 30%">
     </div>
 
     <div class="questions">
     <div class="form-group">
       <label for="exampleFormControlInput2">Question 1</label>
-        <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Enter Question" style="width: 30%">
+        <input type="text" class="form-control" name="question" id="exampleFormControlInput2" placeholder="Enter Question" style="width: 30%">
     </div>
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Sample Answer</label>
-      <textarea style="width: 45%;" placeholder="Enter sample answer for the question" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <textarea style="width: 45%;" placeholder="Enter sample answer for the question" name="sample_answer" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput2">Question Type</label>
+        <input type="text" class="form-control" name="question_type" id="exampleFormControlInput2" placeholder="Enter Question Type" style="width: 30%">
     </div>
     <div class="form-group">
       <label for="exampleFormControlInput3">Time Limit</label>
-        <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Enter Time limit for the answer(in minutes)" style="width: 30%">
+        <input type="text" class="form-control" id="exampleFormControlInput2" name="time_limit" placeholder="Enter Time limit for the answer(in minutes)" style="width: 30%">
 
     </div>
 
@@ -96,6 +110,7 @@
 
 
   </form>
+  {% if form_is_saved and previous_page %}<meta http-equiv="refresh" content="0; url={{ previous_page }}" />{% endif %}
   </div>
   <style>
   #frm{
