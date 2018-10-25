@@ -10,5 +10,6 @@ urlpatterns=[
     url(r'^interview_list/$',views.interview_list,name='interview_list'),
     url(r'^invite/$',views.invite,name='invite'),
     url(r'^domains/$',views.domains,name='domains'),
-]
+    url(r'^register/$',views.register_company,name='register_company'),
 
+]
