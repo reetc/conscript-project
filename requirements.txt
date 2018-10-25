@@ -1,2 +1,12 @@
+argon2-cffi==18.3.0
+bcrypt==3.1.4
+certifi==2018.8.24
+cffi==1.11.5
 Django==2.1.1
+Faker==0.9.1
+Pillow==5.3.0
+pycparser==2.19
+python-dateutil==2.7.3
 pytz==2018.5
+six==1.11.0
+text-unidecode==1.2
