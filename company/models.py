@@ -24,7 +24,6 @@ class Company_details(models.Model):
 	company_location = models.CharField(max_length=30, blank=True)
 	company_email = models.CharField(max_length=60)
 
-
 	def __str__(self):
 		return "%s" %(self.company_name)
 #
@@ -44,6 +43,7 @@ class Job_details(models.Model):
 	job_location = models.CharField(max_length = 60)
 	job_position = models.CharField(max_length = 60)
 	company = models.ForeignKey('Company_details', related_name='jobs',on_delete= models.CASCADE)
+	#compId = models.ForeignKey('Company_details', related_name='compId',on_delete= models.CASCADE)
 
 	def __str__(self):
 		return "%s" %(self.job_name)

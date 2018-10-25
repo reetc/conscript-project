@@ -75,16 +75,16 @@
   </div>
   </div>
 
+<h2 style="text-align: center; margin: auto;">Company {{j}}</h2>
 
 
-<h3 style="text-align: center; margin: auto;">List of Companies</h3>
+<h3 style="text-align: center; margin: auto;">List of Jobs</h3>
   <div class="con" style="margin-bottom: 30px;">
 
     <div class="row">
 
       <div class="col-sm-4">
           {% for i in companies %}
-      <form role="form" action="/candidate/sendComp/{{i}}" method="post">{% csrf_token %}
         <div class="blog-card spring-fever">
         <div class="title-content">
           <h3><a href="#">{{i}}</a></h3>
@@ -93,19 +93,9 @@
         <div class="card-info">
           Insert company detail
           <a href="first.html">Apply<span class="licon icon-arr icon-black"></span></a>
-          <button type="submit" class="btn">Apply</button>
-                                </form>
               {% endfor %}
 
         </div>
-
-
-                                    <!-- <div class="form-group">
-                                        <label class="sr-only" for="contact-email">Answer:</label>
-                                        <input type="text" name="ansname" placeholder="Enter your answer here..." class="ansname form-control" id="ansname">
-                                    </div> -->
-                                    
-                                    
         <div class="gradient-overlay"></div>
         <div class="color-overlay"></div>
       </div><!-- /.blog-card -->
