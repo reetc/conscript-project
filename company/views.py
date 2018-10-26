@@ -5,10 +5,13 @@ from .models import Question_details
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
 
+=======
+>>>>>>> 47b6f110818876427c6a1c1c251db6f172b12408
 
 # Create your views here.
 
@@ -18,6 +21,35 @@ def admin_dashboard(request):
 	# 	return redirect('canhome')
 	# else:
 		return render(request, 'company/index.html')
+
+
+
+def register_company(request):
+	if request.method == 'POST':
+
+		user=User()
+		company=Company_details()
+		user = User.objects.create_user(username=request.POST['username'],password=request.POST['password'])
+		# user.username=request.POST['username']
+		# user.password=user.set_password('password')
+		user.save()
+		# user.Company_details.company_name=request.POST['company_name']
+		company.user=User.objects.get(username=request.POST['username'])
+		company.company_name=request.POST['company_name']
+		# user.Company_details.company_location="Bangalore"
+		company.company_location="Bangalore"
+		# user.Company_details.company_email="efg@gmail.com"
+		company.company_email="efg@gmail.com"
+		# user.save()
+		company.save()
+
+		previous_page = request.META['HTTP_REFERER']
+		data = {'previous_page': previous_page,'abc': 56}
+		return render(request,'company/register_company.html',data)
+	else:
+		previous_page = request.META['HTTP_REFERER']
+		data = {'previous_page': previous_page,'abc': 56}
+		return render(request,'company/register_company.html',data)
 
 
 
