@@ -102,6 +102,7 @@ PASSWORD_HASHERS = [
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -149,3 +150,8 @@ LOGIN_URL = '/basic_app/user_login/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+
+LOGIN_REDIRECT_URL = '/company/admin_dashboard/'
+
+LOGOUT_REDIRECT_URL = '/'
