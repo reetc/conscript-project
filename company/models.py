@@ -20,7 +20,7 @@ from django.dispatch import receiver
 
 class Company_details(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE,default="",blank=True,null=True)
-	company_name = models.TextField(max_length=500)
+	company_name = models.TextField(max_length=50)
 	company_location = models.CharField(max_length=30, blank=True)
 	company_email = models.CharField(max_length=60)
 

@@ -35,9 +35,9 @@ def register_company(request):
 		company.user=User.objects.get(username=request.POST['username'])
 		company.company_name=request.POST['company_name']
 		# user.Company_details.company_location="Bangalore"
-		company.company_location="Bangalore"
+		company.company_location=request.POST['company_location']
 		# user.Company_details.company_email="efg@gmail.com"
-		company.company_email="efg@gmail.com"
+		company.company_email=request.POST['company_email']
 		# user.save()
 		company.save()
 
@@ -51,32 +51,7 @@ def register_company(request):
 
 
 
-def register_company(request):
-	if request.method == 'POST':
 
-		user=User()
-		company=Company_details()
-		user = User.objects.create_user(username=request.POST['username'],password=request.POST['password'])
-		# user.username=request.POST['username']
-		# user.password=user.set_password('password')
-		user.save()
-		# user.Company_details.company_name=request.POST['company_name']
-		company.user=User.objects.get(username=request.POST['username'])
-		company.company_name=request.POST['company_name']
-		# user.Company_details.company_location="Bangalore"
-		company.company_location="Bangalore"
-		# user.Company_details.company_email="efg@gmail.com"
-		company.company_email="efg@gmail.com"
-		# user.save()
-		company.save()
-
-		previous_page = request.META['HTTP_REFERER']
-		data = {'previous_page': previous_page,'abc': 56}
-		return render(request,'company/register_company.html',data)
-	else:
-		previous_page = request.META['HTTP_REFERER']
-		data = {'previous_page': previous_page,'abc': 56}
-		return render(request,'company/register_company.html',data)
 
 
 def interview_list(request):
