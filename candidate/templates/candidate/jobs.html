@@ -55,6 +55,11 @@
 
       </div>
     </div>
+    <div>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'can_logout' %}"> Logout </a>
+                    {% endif %}
+    </div>
     <div class="dropdown" style="margin-right: 90px;">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Admin
@@ -84,14 +89,14 @@
     <div class="row">
 
       <div class="col-sm-4">
-          {% for i in companies %}
+          {% for i in jobs %}
         <div class="blog-card spring-fever">
         <div class="title-content">
           <h3><a href="#">{{i}}</a></h3>
           <div class="intro"> <a href="#"></a> </div>
         </div>
         <div class="card-info">
-          Insert company detail
+          Insert job detail
           <a href="first.html">Apply<span class="licon icon-arr icon-black"></span></a>
               {% endfor %}
 

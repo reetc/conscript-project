@@ -15,10 +15,7 @@ def canhomepage(request):
 
 def sendComp(request,ide):
     if request.method == 'POST':
-        j = Company_details(company_name=ide)
-        print(j.company_name)
-        print(j.id)
-        jobs = Job_details.objects.get(company=j.company_name)
+        jobs = Job_details.objects.filter(company_id=ide)
         print(jobs)
     return render(request,'candidate/jobs.html',{'jobs':jobs})
 
@@ -36,7 +33,7 @@ def register(request):
 
         user = authenticate(username = username, password = password)
         login(request, user)
-        return redirect('/')
+        return redirect('/candidate/canhomepage/')
     else:
         return render(request,'candidate/register.html')   
 
@@ -48,7 +45,7 @@ def login_blog(request):
         if user :
             if user.is_active:
                 login(request,user)
-                return redirect('/')
+                return redirect('/candidate/canhomepage/')
             else:
                 return HttpResponse('Disabled Account')
         else:

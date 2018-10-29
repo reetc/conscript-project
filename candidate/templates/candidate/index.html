@@ -55,6 +55,11 @@
 
       </div>
     </div>
+     <div>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'can_logout' %}"> Logout </a>
+                    {% endif %}
+    </div>
     <div class="dropdown" style="margin-right: 90px;">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Admin
@@ -84,7 +89,7 @@
 
       <div class="col-sm-4">
           {% for i in companies %}
-      <form role="form" action="/candidate/sendComp/{{i}}" method="post">{% csrf_token %}
+      <form role="form" action="/candidate/sendComp/{{i.id}}" method="post">{% csrf_token %}
         <div class="blog-card spring-fever">
         <div class="title-content">
           <h3><a href="#">{{i}}</a></h3>
@@ -92,7 +97,6 @@
         </div>
         <div class="card-info">
           Insert company detail
-          <a href="first.html">Apply<span class="licon icon-arr icon-black"></span></a>
           <button type="submit" class="btn">Apply</button>
                                 </form>
               {% endfor %}
