@@ -77,7 +77,7 @@
 
   <div class="jumbotron jumbotron-fluid" style="background: #aaf2f7;">
     <h1 class="display-4" style="margin-left: 20px;"> Candidate Dashboard</h1>
-  </div>
+  </div>b
   </div>
 
 <h2 style="text-align: center; margin: auto;">Company {{j}}</h2>
@@ -90,6 +90,7 @@
 
       <div class="col-sm-4">
           {% for i in jobs %}
+        <form role="form" action="/candidate/sendJob/" method="post">{% csrf_token %}
         <div class="blog-card spring-fever">
         <div class="title-content">
           <h3><a href="#">{{i}}</a></h3>
@@ -98,6 +99,8 @@
         <div class="card-info">
           Insert job detail
           <a href="first.html">Apply<span class="licon icon-arr icon-black"></span></a>
+          <button type="submit" class="btn">Apply</button>
+          </form>
               {% endfor %}
 
         </div>

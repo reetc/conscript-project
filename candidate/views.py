@@ -19,6 +19,11 @@ def sendComp(request,ide):
         print(jobs)
     return render(request,'candidate/jobs.html',{'jobs':jobs})
 
+def sendJob(request):
+    if request.method == 'POST':
+        print("hi")
+    return render(request,'candidate/first.html')
+
 def register(request):
     if request.method == 'POST':
         username = request.POST.get('email')
