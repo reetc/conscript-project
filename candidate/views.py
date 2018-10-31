@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from company.models import Company_details,Job_details
+from company.models import Company_details,Job_details,Question_details
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
@@ -19,10 +19,11 @@ def sendComp(request,ide):
         print(jobs)
     return render(request,'candidate/jobs.html',{'jobs':jobs})
 
-def sendJob(request):
+def sendJob(request,ide):
     if request.method == 'POST':
-        print("hi")
-    return render(request,'candidate/first.html')
+        ques = Question_details.objects.filter(job_id=ide)
+        print(ques)
+    return render(request,'candidate/ques.html',{'ques':ques})
 
 def register(request):
     if request.method == 'POST':

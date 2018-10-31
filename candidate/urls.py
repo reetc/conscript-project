@@ -10,6 +10,5 @@ urlpatterns = [
     url(r'^login/$', views.login_blog, name="can_login"),
     url(r'^register/$', views.register, name="can_register"),
     url(r'^logout/$', views.logout_blog, name="can_logout"),
-    url(r'sendJob/$', views.sendJob, name="sendJob"),
-    
+    url(r'sendJob/(\S+)$', views.sendJob, name="sendJob"),
     ]
