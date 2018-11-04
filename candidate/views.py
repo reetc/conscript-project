@@ -21,6 +21,9 @@ def sendComp(request,ide):
     else:
     	return render(request, 'candidate/jobs.html')
 
+def questions(request):
+	return render(request, 'candidate/first.html')
+
 
 def register(request):
     if request.method == 'POST':
