@@ -39,8 +39,8 @@
 <!-- 4. Initialize and prepare the video recorder logic -->
 <script>
 	//---------------------------------------------------------------
-	var albumBucketName = 'video-bucket-01';
-	var bucketRegion = 'us-east-2';
+	var albumBucketName = 'recorded-video-bucket';
+	var bucketRegion = 'ap-south-1';
 	var IdentityPoolId = 'us-east-1_FlxVXEiqf';
 
 	var s3 = new AWS.S3({
@@ -127,17 +127,17 @@
     	var videoBlob = recorder.getBlob();
     	video.src = URL.createObjectURL(videoBlob);
     	
-    	AWS.config.update({ accessKeyId: 'AKIAIXVT6KC4HTVUTUAQ', secretAccessKey: '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' });
+    	AWS.config.update({ accessKeyId: 'AKIAJ77CCAJQPZKBUZXA', secretAccessKey: '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' });
     	
     	//alert("1");
 
     	var d = new Date();
     	var n = d.getTime();
 
-  		AWS.config.region = 'us-east-2';
+  		AWS.config.region = 'ap-south-1';
 	  	var s3 = new AWS.S3();
 	  	var params = {
-	    	Bucket: 'video-bucket-01',
+	    	Bucket: 'recorded-video-bucket',
 	   	 	Key: n +'.mp4',
 	    	Body: videoBlob,
 	    	ACL: "public-read"
