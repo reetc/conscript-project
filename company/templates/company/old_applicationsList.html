@@ -1,0 +1,121 @@
+{% extends 'company/base.html' %}
+
+
+{% block content %}
+
+<h3 style="text-align: center; margin: auto;">List of Companies</h3>
+  <div class="con" style="margin-bottom: 30px;">
+
+    <div class="row">
+
+      <div class="col-sm-4">
+          {% for i in applications %}
+      <form role="form" action="/candidate/sendComp/{{i.id}}" method="post">{% csrf_token %}
+        <div class="blog-card spring-fever">
+        <div class="title-content">
+          <h3><a href="#">{{i.candidate}}</a></h3>
+          <h3><a href="#">{{i.job}}</a></h3>
+
+          <div class="intro"> <a href="#"></a> </div>
+        </div>
+        <div class="card-info">
+          Insert company detail
+          <button type="submit" class="btn">Apply</button>
+                                </form>
+              {% endfor %}
+
+        </div>
+
+
+                                    <!-- <div class="form-group">
+                                        <label class="sr-only" for="contact-email">Answer:</label>
+                                        <input type="text" name="ansname" placeholder="Enter your answer here..." class="ansname form-control" id="ansname">
+                                    </div> -->
+
+
+        <div class="gradient-overlay"></div>
+        <div class="color-overlay"></div>
+      </div><!-- /.blog-card -->
+      </div>
+
+      <!-- <div class="col-sm-4">
+        <div class="blog-card spring-fever">
+        <div class="title-content">
+          <h3><a href="#">Microsoft</a></h3>
+          <div class="intro"> <a href="#">Be What's Next</a> </div>
+        </div>
+        <div class="card-info">
+          Microsoft Corporation is an American multinational technology company with headquarters in Redmond, Washington. It develops, manufactures and sells computer software, consumer electronics, personal computers, and related services.
+          <a href="first.html">Apply<span class="licon icon-arr icon-black"></span></a>
+        </div>
+        <div class="gradient-overlay"></div>
+        <div class="color-overlay"></div>
+      </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="blog-card spring-fever">
+        <div class="title-content">
+          <h3><a href="#">Google</a></h3>
+          <div class="intro"> <a href="#">Don't be evil</a> </div>
+        </div>
+        <div class="card-info">
+          Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, search engine, cloud computing, software, and hardware.
+          <a href="first.html">Apply<span class="licon icon-arr icon-black"></span></a>
+        </div>
+        <div class="gradient-overlay"></div>
+        <div class="color-overlay"></div>
+      </div>
+      </div>
+    </div>
+    <br><br> -->
+    <!-- <div class="row">
+      <div class="col-sm-4">
+        <div class="blog-card spring-fever">
+        <div class="title-content">
+          <h3><a href="#">Google</a></h3>
+          <div class="intro"> <a href="#">Don't be evil</a> </div>
+        </div>
+        <div class="card-info">
+          Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, search engine, cloud computing, software, and hardware.
+          <a href="first.html">Apply<span class="licon icon-arr icon-black"></span></a>
+        </div>
+        <div class="gradient-overlay"></div>
+        <div class="color-overlay"></div>
+      </div>
+      </div>
+ -->
+      <!-- <div class="col-sm-4">
+        <div class="blog-card spring-fever">
+        <div class="title-content">
+          <h3><a href="#">Google</a></h3>
+          <div class="intro"> <a href="#">Don't be evil</a> </div>
+        </div>
+        <div class="card-info">
+          Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, search engine, cloud computing, software, and hardware.
+          <a href="first.html">Apply<span class="licon icon-arr icon-black"></span></a>
+        </div>
+        <div class="gradient-overlay"></div>
+        <div class="color-overlay"></div>
+      </div>
+      </div> -->
+
+      <!-- <div class="col-sm-4">
+        <div class="blog-card spring-fever">
+        <div class="title-content">
+          <h3><a href="#">Company name</a></h3>
+          <div class="intro"> <a href="#">Company slogan</a> </div>
+        </div>
+        <div class="card-info">
+          Short description about company
+          <a href="first.html">Apply<span class="licon icon-arr icon-black"></span></a>
+        </div>
+        <div class="gradient-overlay"></div>
+        <div class="color-overlay"></div>
+      </div>
+      </div>
+    </div> -->
+    <br><br>
+  </div>
+
+  {% endblock %}

@@ -12,4 +12,8 @@ urlpatterns=[
     url(r'^domains/$',views.domains,name='domains'),
     url(r'^register/$',views.register_company,name='register_company'),
     url(r'^results/$',views.display_results,name='display_results'),
+    url(r'applications_list/$', views.applications_list, name="applications_list"),
+    url(r'application_result/(\S+)$', views.application_result, name="applicantion_result"),
+
+
 ]

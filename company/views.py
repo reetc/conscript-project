@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from . import functs
+from candidate.models import Job_application_details
+
 
 
 # Create your views here.
@@ -32,6 +34,8 @@ def display_results(request):
 			# model_answer=job_questions.values('model_answer')[0].get('model_answer')
 			# job_questions=job_questions_object.question_name
 
+
+
 			relevance=functs.answer_relevance(request)
 			data = {'previous_page': "previous_page",'relevance': relevance,'job_list': jobs_list,'job':selected_job,'job_questions':job_questions,'model_answer':model_answer}
 			return render(request,'company/results.html',data)
@@ -42,9 +46,15 @@ def display_results(request):
 
 
 
+def application_result(request,id):
+	return HttpResponse("No Job Posted", content_type="text/plain")
 
 
 
+def applications_list(request):
+	this_company_name=request.user.company_details.company_name
+	applications = Job_application_details.objects.filter(company_name = this_company_name)
+	return render(request, 'company/applicationsList.html',{'applications':applications})
 
 
 def register_company(request):
