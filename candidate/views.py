@@ -25,6 +25,10 @@ def questions(request):
 	return render(request, 'candidate/first.html')
 
 
+def webcam(request):
+	return render(request, 'candidate/webcam.html')
+
+
 def register(request):
     if request.method == 'POST':
         username = request.POST.get('email')
