@@ -17,7 +17,17 @@ def sendComp(request,ide):
     if request.method == 'POST':
         jobs = Job_details.objects.filter(company_id=ide)
         print(jobs)
-    return render(request,'candidate/jobs.html',{'jobs':jobs})
+        return render(request,'candidate/jobs.html',{'jobs':jobs})
+    else:
+    	return render(request, 'candidate/jobs.html')
+
+def questions(request):
+	return render(request, 'candidate/first.html')
+
+
+def webcam(request):
+	return render(request, 'candidate/webcam.html')
+
 
 def register(request):
     if request.method == 'POST':

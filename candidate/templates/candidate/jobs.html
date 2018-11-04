@@ -1,4 +1,6 @@
 <html>
+{% load static %}
+{% load staticfiles %}
 
 <head>
   <meta charset="utf-8">
@@ -97,7 +99,7 @@
         </div>
         <div class="card-info">
           Insert job detail
-          <a href="first.html">Apply<span class="licon icon-arr icon-black"></span></a>
+          <a href="{% url 'questions' %}">Apply<span class="licon icon-arr icon-black"></span></a>
               {% endfor %}
 
         </div>
