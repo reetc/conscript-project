@@ -20,9 +20,10 @@ from django.dispatch import receiver
 
 class Company_details(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE,default="",blank=True,null=True)
-	company_name = models.TextField(max_length=50)
+	company_name = models.TextField(max_length=60)
 	company_location = models.CharField(max_length=30, blank=True)
 	company_email = models.CharField(max_length=60)
+
 
 	def __str__(self):
 		return "%s" %(self.company_name)
@@ -43,7 +44,6 @@ class Job_details(models.Model):
 	job_location = models.CharField(max_length = 60)
 	job_position = models.CharField(max_length = 60)
 	company = models.ForeignKey('Company_details', related_name='jobs',on_delete= models.CASCADE)
-	#compId = models.ForeignKey('Company_details', related_name='compId',on_delete= models.CASCADE)
 
 	def __str__(self):
 		return "%s" %(self.job_name)
@@ -51,9 +51,13 @@ class Job_details(models.Model):
 
 
 class Question_details(models.Model):
-	question_name = models.CharField(max_length = 60)
-	model_answer = models.CharField(max_length = 100)
+	question_name = models.CharField(max_length = 100)
+	model_answer = models.CharField(max_length = 3000)
 	# question_id = models.AutoField(primary_key=True,default=0)
 	question_type = models.CharField(max_length = 60)
 	job = models.ForeignKey('Job_details', related_name='questions',on_delete= models.CASCADE)
 	time_limit=models.IntegerField(default=3)
+
+
+	def __str__(self):
+		return "%s" %(self.question_name)

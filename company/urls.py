@@ -11,5 +11,5 @@ urlpatterns=[
     url(r'^invite/$',views.invite,name='invite'),
     url(r'^domains/$',views.domains,name='domains'),
     url(r'^register/$',views.register_company,name='register_company'),
-
+    url(r'^results/$',views.display_results,name='display_results'),
 ]
