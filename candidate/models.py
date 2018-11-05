@@ -19,11 +19,11 @@ class Job_application_details(models.Model):
     # job_location = models.CharField(max_length = 60)
     # application_id=models.AutoField(primary_key=True,default=0)
 
-<<<<<<< HEAD
-    job = models.ForeignKey(Job_details,on_delete= models.CASCADE,default=0)
-=======
+# <<<<<<< HEAD
+#     job = models.ForeignKey(Job_details,on_delete= models.CASCADE,default=0)
+# =======
     job_id=models.ForeignKey(Job_details,on_delete= models.CASCADE,default=0)
->>>>>>> abd0f378cdc866ac75badbcfad0054ff3ab8bdcd
+# >>>>>>> abd0f378cdc866ac75badbcfad0054ff3ab8bdcd
     # job_position = models.CharField(max_length = 60)
     candidate = models.ForeignKey(Candidate_personal_details, on_delete= models.CASCADE,default=0)
     # job_name = models.CharField(max_length = 60,default="")
@@ -32,13 +32,13 @@ class Job_application_details(models.Model):
     score_answer_relevance = models.FloatField(null=True, blank=True)
     score_grammar_analysis = models.FloatField(null=True, blank=True)
     score_sentiment_analysis = models.FloatField(null=True, blank=True)
-<<<<<<< HEAD
+# <<<<<<< HEAD
 
 
     def __str__(self):
         return "%s" %(self.candidate)
-# additional scores if any
-=======
+# # additional scores if any
+# =======
     
-    # additional scores if any
->>>>>>> abd0f378cdc866ac75badbcfad0054ff3ab8bdcd
+#     # additional scores if any
+# >>>>>>> abd0f378cdc866ac75badbcfad0054ff3ab8bdcd
