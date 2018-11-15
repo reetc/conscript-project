@@ -1,5 +1,8 @@
 <!doctype html>
 <html>
+<html>
+    {% load static %}
+    {% load staticfiles %}
     <head>
         <title>Webcam</title>
     </head>
@@ -24,18 +27,23 @@
     </script>
 <body class="class2" style="text-align:  center;" onload="myFunction()">
         <!-- 1. Include action buttons play/stop -->
-<button id="btn-start-recording">Start Recording</button>
-<button id="btn-stop-recording" disabled="disabled">Stop Recording</button>
+<button id="btn-start-recording" onclick="startConverting()">Start Recording</button>
+<button id="btn-stop-recording" onclick="stopSTT()" disabled="disabled">Stop Recording</button>
+<body onload="stopSTT(); callStart();">
 <button id="upload-to-aws">Upload</button>
 <a href="first.html"><button>Next Question</button></a>
 <hr>
 	
 <h2 class="text">Tell me about yourself.</h2>>
 <video id="my-preview" class="class1"controls autoplay ></video>
+<div id="result"></div>
+
 
 <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
 <!-- 4. Initialize and prepare the video recorder logic -->
 <script>
 	//---------------------------------------------------------------
@@ -59,9 +67,14 @@
         this.disabled = true;
 
         // Request access to the media devices
+
+
+
+
+
         navigator.mediaDevices.getUserMedia({
             audio: true, 
-            video: true
+            video: true,
         }).then(function(stream) {
             // Display a live preview on the video element of the page
             setSrcObject(stream, video);
@@ -127,7 +140,8 @@
     	var videoBlob = recorder.getBlob();
     	video.src = URL.createObjectURL(videoBlob);
     	
-    	AWS.config.update({ accessKeyId: 'AKIAJ77CCAJQPZKBUZXA', secretAccessKey: '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' });
+    	// AWS.config.update({ accessKeyId: 'AKIAJ77CCAJQPZKBUZXA', secretAccessKey: '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' });
+    	AWS.config.update({ accessKeyId: 'AKIAJ4KG35HJ6MXORFBQ', secretAccessKey: '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' });
     	
     	//alert("1");
 
@@ -146,19 +160,109 @@
 	  	//alert("2");
 		var uploader = s3.upload(params, {}, function (err, data) {
 		  if (err) {
-		  	//alert("3");
+		  	alert("An Error occured while uploading to AWS, Please Try again.");
 		    //logElapsedTime('error: ' + err.message);
 		  }
 		  else {
-		  	alert("Uploaded the video to AWS succesfully");
+		  	alert("Uploaded the video to AWS succesfully.");
+
+			// var myObj = JSON.parse(n);
+			// console.log(myObj);
+
+			// // console.log(n)
+		    $.ajax({
+        		type: 'POST',
+        		url: '/candidate/webcam/',
+        		// contentType: "application/json",
+        		// headers: {
+          //               'Content-Type':'application/json',
+          //               'X-CSRFToken': "{{ csrf_token }}"
+          //           },
+                dataType: "json",
+                data: {
+                    senddata: JSON.stringify(n),
+                    text_from_speech: JSON.stringify(text_from_speech),
+                    },
+
+    		});
+
+		    window.csrftoken="{{csrftoken}}";
+
+			
 		  }
-		  clearInterval(clock);
+		  // clearInterval(clock);
 		});
 		uploader.on('httpUploadProgress', function (evt) {
 	    //logElapsedTime('uploaded ' + evt.loaded + '/' + evt.total);
 	  });
     	
     }, false);
+
+
+
+
+
+    // Speech recognition
+
+            function callStart() {
+                alert('First');
+            }
+
+
+
+    let speechRecognizer = new webkitSpeechRecognition();
+    var r = document.getElementById('result');
+    var text_from_speech = ''
+
+    function startConverting(){
+        if('webkitSpeechRecognition' in window) {
+            speechRecognizer.continuous = true; // false-default
+            speechRecognizer.interimResults = true; // make it false so when he stops speaking then its the end
+            speechRecognizer.lang = 'en-IN'; // language
+            speechRecognizer.start(); //start listening to the user
+
+            let finalTranscripts = ''; // the final text after user completed speaking
+            speechRecognizer.onresult = function(event) { // while user is speaking
+                let interimTranscripts = ''; // text while the user is speaking
+                for(let i = event.resultIndex; i < event.results.length; i++) {
+                    let transcript = event.results[i][0].transcript;
+                    transcript.replace("\n", "<br>")
+                    if(event.results[i].isFinal){
+                        finalTranscripts += transcript;
+                    } else {
+                        interimTranscripts += transcript;
+                    }
+                }
+                // r.innerHTML = finalTranscripts + interimTranscripts + '</span>'; //show the final text
+                text_from_speech = finalTranscripts + interimTranscripts ; //show the final text
+            };
+
+            speechRecognizer.onend = function() { // when the program assumes that the user stopped talking
+                console.log('Speech recognition service disconnected');
+                console.log(r.innerHTML)
+        };
+            speechRecognizer.onerror = function(event) {
+            };
+        }
+
+        else {
+            console.log('Speech Recognizer is not supported in your browser.');
+        }
+    }
+
+    function passtext()
+    {
+        var text = r.innerHTML;
+        console.log(text+"correct")
+        return text;
+    }
+    function stopSTT()
+    {
+        console.log("111")
+        speechRecognizer.stop()
+    }
+
+
 
 </script>
     </body>
