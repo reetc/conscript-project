@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 from keras.preprocessing import image
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from keras.models import model_from_json
 import numpy as np
 import os
