@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'conscript.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-SECRET_KEY = config('SECRET_KEY')
+#SECRET_KEY = config('SECRET_KEY')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -127,12 +127,11 @@ USE_TZ = True
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles'
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-                    os.path.join(PROJECT_ROOT, 'static'),
-)
+STATIC_ROOT = 'static'
+#STATICFILES_DIRS = (
+#                    os.path.join(PROJECT_ROOT, 'static'),
+#)
                            
                            
 MEDIA_ROOT = MEDIA_DIR
@@ -148,4 +147,4 @@ LOGIN_URL = '/basic_app/user_login/'
 LOGIN_REDIRECT_URL = '/company/admin_dashboard/'
 
 LOGOUT_REDIRECT_URL = '/'
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
