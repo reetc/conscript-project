@@ -10,6 +10,8 @@ from django.shortcuts import redirect
 from . import functs
 from candidate.models import Job_application_details
 
+from django.contrib.auth import authenticate, login, logout
+
 
 
 # Create your views here.
@@ -20,6 +22,24 @@ def admin_dashboard(request):
 	# 	return redirect('canhome')
 	# else:
 		return render(request, 'company/index.html')
+
+
+
+def com_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username = username, password = password)
+        if user :
+            if user.is_active:
+                login(request,user)
+                return redirect('/company/admin_dashboard/')
+            else:
+                return HttpResponse('Disabled Account')
+        else:
+            return HttpResponse("Invalid Login details.Are you trying to Sign up?")
+    else:
+        return render(request,'company/login.html')
 
 
 def display_results(request):
