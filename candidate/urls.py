@@ -11,6 +11,6 @@ urlpatterns = [
     url(r'^register/$', views.register, name="can_register"),
     url(r'^logout/$', views.logout_blog, name="can_logout"),
     url(r'^questions/$', views.questions, name="questions"),
-#    url(r'^webcam/$', views.webcam, name="webcam"),
-    
+    url(r'^webcam/$', views.webcam, name="webcam"),
+
     ]
