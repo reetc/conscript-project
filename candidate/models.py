@@ -2,9 +2,12 @@ from django.db import models
 from company.models import Job_details
 from django.utils.translation import gettext as _
 import datetime
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 class Candidate_personal_details(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,default="",blank=True,null=True)
     candidate_name = models.CharField(max_length = 60)
     candidate_email = models.CharField(max_length = 60,default="")
     # cadidate_id = models.AutoField(primary_key=True,default=0)
