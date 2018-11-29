@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Candidate_personal_details
 from .models import Job_application_details
+from .models import Emotion_output
 
 
 from keras.preprocessing import image
@@ -128,15 +129,18 @@ def webcam(request):
                print(emo[index], frame)
                emotions.append(emo[index])
                emo_dict[emo[index]] += 1
-               with open('outfile.json', 'w') as fp:
+               filenamejson = filename + '.json'
+               with open(filenamejson, 'w') as fp:
                    json.dump(emo_dict, fp)
                # emotion_analysis(custom[0])
-               filename = 'outfile.json'
-               s3.meta.client.upload_file(filename, bucket_name, filename)
+               s3.meta.client.upload_file(filenamejson, bucket_name, filenamejson)
            print()
            print(emo_dict)
+
+           Emotion_output.objects.create(file_name = filenamejson, emo_output = emo_dict)
+
            shutil.rmtree('data')
-           os.remove('outfile.json')
+           os.remove(filenamejson)
            os.remove(filename_vid)
            K.clear_session()
 

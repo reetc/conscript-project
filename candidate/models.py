@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.postgres.fields import HStoreField
+from jsonfield import JSONField
+
 from company.models import Job_details
 from django.utils.translation import gettext as _
 import datetime
@@ -34,3 +37,9 @@ class Job_application_details(models.Model):
 
     def __str__(self):
         return "%s" %(self.candidate)
+
+class Emotion_output(models.Model):
+	file_name = models.CharField(max_length=200)
+	emo_output = JSONField()
+	def __str__(self):
+		return "%s %s" %(self.file_name, self.emo_output)
