@@ -1,0 +1,13 @@
+{% extends 'company/base.html' %}
+    
+{% block content %}
+
+{% for d in emo.emotion %}
+{{d.file_name}}
+{{d.emo_output}}
+
+{% endfor %}
+
+<!-- {{emo}} -->
+
+{% endblock %}

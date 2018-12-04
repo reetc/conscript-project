@@ -10,8 +10,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Candidate_personal_details
 from .models import Job_application_details
-from .models import Emotion_output
 
+from .models import Emotion_output
+from .models import Sentiment_output
+from .models import Similarity_output
 
 from keras.preprocessing import image
 #import matplotlib.pyplot as plt
@@ -144,11 +146,18 @@ def webcam(request):
            os.remove(filename_vid)
            K.clear_session()
 
+
+
+
+
+
+
            ################## sentiment analysis #########################
            bucket_name = 'texts-converted-from-speech-01'
-           with open('text_from_speech.txt', 'w') as f:
+           filenametext = filename+'_stt.txt'
+           with open(filenametext, 'w') as f:
                f.write(text_from_speech)
-           s3.meta.client.upload_file('text_from_speech.txt', bucket_name, 'text_from_speech.txt')
+           s3.meta.client.upload_file(filenametext, bucket_name, filenametext)
            # os.remove('text_from_speech.txt')
            print('text converted from speech uploeaded to AWS')
 
@@ -159,17 +168,30 @@ def webcam(request):
            print()
            print("The sentiment analysis is:")
            print()
-           with open('sentiment.txt', "w") as f:
-               for key in sorted(scores):
-                   print('{0}: {1}, '.format(key, scores[key]), end='')
-                   f.write('\n')
-                   f.write('{0}: {1},'.format(key, scores[key]))
-                   f.write('\n')
-           s3.meta.client.upload_file('sentiment.txt', bucket_name, 'sentiment.txt')
+           filenamesentiment = filename+'_sentiment.txt'
+           with open(filenamesentiment, "w") as f:
+                json.dump(scores, f)
+
+           s3.meta.client.upload_file(filenamesentiment, bucket_name, filenamesentiment)
            print()
            print('Sentiment analysis done and file uploeaded to AWS')
            print()
-           os.remove('sentiment.txt')
+
+           with open(filenamesentiment, "r") as f:
+                sentiment_score_dict = f.read()
+
+           Sentiment_output.objects.create(file_name_sentiment = filenamesentiment, sentiment_score = sentiment_score_dict)
+
+           os.remove(filenamesentiment)
+
+
+
+
+
+
+
+
+
 
            ################## Answer Relevance #########################
            bucket_name = 'answer-relavance'
@@ -194,7 +216,7 @@ def webcam(request):
 
            sims = gensim.similarities.Similarity(currdir+'/answer_relavance',tf_idf[corpus], num_features=len(dictionary))
 
-           file2 = open("text_from_speech.txt","r")
+           file2 = open(filenametext,"r")
            p2=file2.read()
            print("****************  Given Answer   ******************")
            print(p2)
@@ -212,16 +234,21 @@ def webcam(request):
            print("Final Similarity Index: ",(sum/(len(raw_documents))))
 
            answer = str(sum/len(raw_documents))
-           with open('similarity.txt', "w") as similarity:
+           filename_similarity = filename+'_similarity.txt'
+
+           with open(filename_similarity, "w") as similarity:
                similarity.write(answer)
-           s3.meta.client.upload_file('similarity.txt', bucket_name, 'similarity.txt')
+
+           s3.meta.client.upload_file(filename_similarity, bucket_name, filename_similarity)
 
            similarity.close()
            file1.close()
            file2.close()
 
-           os.remove('text_from_speech.txt')
-           os.remove('similarity.txt')
+           Similarity_output.objects.create(file_name_similarity = filename_similarity,  similarity_score = answer)
+
+           os.remove(filenametext)
+           os.remove(filename_similarity)
            print('All are successfull')
        return render(request, 'candidate/webcam.html')
    else:

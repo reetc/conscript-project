@@ -43,3 +43,15 @@ class Emotion_output(models.Model):
 	emo_output = JSONField()
 	def __str__(self):
 		return "%s %s" %(self.file_name, self.emo_output)
+
+class Sentiment_output(models.Model):
+	file_name_sentiment = models.CharField(max_length = 200)
+	sentiment_score = JSONField()
+	def __str__(self):
+		return "%s %s" %(self.file_name_sentiment, self.sentiment_score)
+
+class Similarity_output(models.Model):
+	file_name_similarity = models.CharField(max_length = 200)
+	similarity_score = models.CharField(max_length = 200)
+	def __str__(self):
+		return "%s %s" %(self.file_name_similarity, self.similarity_score)

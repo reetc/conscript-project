@@ -13,6 +13,9 @@ from candidate.models import Job_application_details
 from django.contrib.auth import authenticate, login, logout
 
 
+from candidate.models import Emotion_output
+from candidate.models import Sentiment_output
+from candidate.models import Similarity_output
 
 # Create your views here.
 
@@ -40,6 +43,44 @@ def com_login(request):
             return HttpResponse("Invalid Login details.Are you trying to Sign up?")
     else:
         return render(request,'company/login.html')
+
+
+
+def analysis(request):
+	data_emo = Emotion_output.objects.all()
+	data_sentiment = Sentiment_output.objects.all()
+	data_similarity = Similarity_output.objects.all()
+	emo = {
+    'emotion': data_emo
+	}
+
+	senti = {
+	'sentiment': data_sentiment
+	}
+
+	simi = {
+	'similarity': data_similarity
+	}
+
+	# print()
+	# print()
+	# print()
+	# print()
+	# print()
+	# print(data_emo)
+	# print()
+	# print()
+	# print()
+	# print()
+	# print()
+	# # for d in emo:
+	# # 	print(d.data_emo)
+	# print('holaaa')
+	# for d in data_emo:
+	# 	print(d.emo_output)
+	# print('yo')
+	# print(emo['emotion'])
+	return render(request, "company/analysis.html", context={"emo": emo, "senti": senti, "simi":simi})
 
 
 def display_results(request):

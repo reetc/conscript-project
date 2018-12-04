@@ -1,0 +1,37 @@
+{% extends 'company/base.html' %}
+    
+{% block content %}
+
+<h4>Face Emotion:</h4>
+{% for d in emo.emotion %}
+<br>
+{{d.file_name}}
+<br>
+{{d.emo_output}}
+<br>
+{% endfor %}
+
+<br>
+
+<h4>Sentiment Analysis:</h4>
+{% for sen in senti.sentiment %}
+<br>
+{{sen.file_name_sentiment}}
+<br>
+{{sen.sentiment_score}}
+<br>
+{% endfor %}
+
+<br>
+<h4>Answer Relevance:</h4>
+{% for sim in simi.similarity %}
+<br>
+{{sim.file_name_similarity}}
+<br>
+{{sim.similarity_score}}
+<br>
+{% endfor %}
+
+
+
+{% endblock %}
