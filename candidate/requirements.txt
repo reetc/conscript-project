@@ -5,7 +5,7 @@ dj-static==0.0.6
 Django==2.1.1
 django-allauth==0.37.1
 django-filter==2.0.0
-tensorflow==1.9.0
+tensorflow==1.15.0
 numpy==1.14.0
 opencv-contrib-python==3.4.2.16
 opencv-python==3.4.2.16
