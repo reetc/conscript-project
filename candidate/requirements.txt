@@ -8,6 +8,6 @@ django-filter==2.0.0
 tensorflow==1.9.0
 numpy==1.14.0
 opencv-contrib-python==3.4.2.16
-opencv-python==3.4.2.16
+opencv-python==3.4.7.28
 nltk==3.3
 gensim==3.6.0
